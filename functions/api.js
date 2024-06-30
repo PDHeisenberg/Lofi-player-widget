@@ -24,33 +24,40 @@ exports.handler = async function(event, context) {
     };
   }
 
-  if (path === 'currentTrack' && method === 'GET') {
-    try {
-      const track = tracks[currentTrackIndex];
-      console.log('Fetching data for track:', track);
-      const response = await youtube.videos.list({
-        part: 'snippet',
-        id: track.youtubeId
-      });
-      console.log('YouTube API response:', response.data);
-      const videoData = response.data.items[0].snippet;
-      return {
-        statusCode: 200,
-        body: JSON.stringify({
-          title: track.title,
-          artist: track.artist,
-          thumbnail: videoData.thumbnails.default.url,
-          youtubeId: track.youtubeId
-        })
-      };
-    } catch (error) {
-      console.error('Error fetching video:', error);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: 'Failed to fetch video', details: error.message })
-      };
+ if (path === 'currentTrack' && method === 'GET') {
+  try {
+    const track = tracks[currentTrackIndex];
+    console.log('Fetching data for track:', track);
+    const response = await youtube.videos.list({
+      part: 'snippet',
+      id: track.youtubeId
+    });
+    console.log('YouTube API response:', response.data);
+    if (!response.data.items || response.data.items.length === 0) {
+      throw new Error('No video data returned from YouTube API');
     }
+    const videoData = response.data.items[0].snippet;
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        title: track.title,
+        artist: track.artist,
+        thumbnail: videoData.thumbnails.default.url,
+        youtubeId: track.youtubeId
+      })
+    };
+  } catch (error) {
+    console.error('Error fetching video:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ 
+        error: 'Failed to fetch video', 
+        details: error.message,
+        stack: error.stack
+      })
+    };
   }
+}
 
   if (path === 'togglePlayPause' && method === 'POST') {
     isPlaying = !isPlaying;

@@ -1,0 +1,12 @@
+{
+  "name": "music-widget",
+  "version": "1.0.0",
+  "description": "A music widget using YouTube API",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build step needed'"
+  },
+  "dependencies": {
+    "googleapis": "^92.0.0"
+  }
+}

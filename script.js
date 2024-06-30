@@ -81,27 +81,33 @@ function loadTrack(index) {
 
 function updatePlayerInfo(track) {
     console.log('Updating player info:', track);
-    document.getElementById('track-name').textContent = track.title;
-    document.getElementById('artist-name').textContent = track.artist;
-    document.getElementById('thumbnail').src = track.thumbnail;
+    const trackNameElement = document.getElementById('track-name');
+    const artistNameElement = document.getElementById('artist-name');
+    const thumbnailElement = document.getElementById('thumbnail');
+
+    if (trackNameElement) trackNameElement.textContent = track.title;
+    if (artistNameElement) artistNameElement.textContent = track.artist;
+    if (thumbnailElement) thumbnailElement.src = track.thumbnail;
 }
 
 const progressBar = document.querySelector('.progress-bar');
 const progress = document.querySelector('.progress');
 
-progressBar.addEventListener('click', (e) => {
-    const rect = progressBar.getBoundingClientRect();
-    const pos = (e.clientX - rect.left) / rect.width;
-    player.seekTo(pos * player.getDuration());
-    updateProgressBar();
-});
+if (progressBar) {
+    progressBar.addEventListener('click', (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        player.seekTo(pos * player.getDuration());
+        updateProgressBar();
+    });
+}
 
 function updateProgressBar() {
     if (player && player.getCurrentTime && isPlaying) {
         const currentTime = player.getCurrentTime();
         const duration = player.getDuration();
         const progressPercent = (currentTime / duration) * 100;
-        progress.style.width = `${progressPercent}%`;
+        if (progress) progress.style.width = `${progressPercent}%`;
     }
 }
 
@@ -109,16 +115,18 @@ function updatePlayPauseButton() {
     const playIcon = document.getElementById('play-icon');
     const pauseIcon = document.getElementById('pause-icon');
     
-    if (isPlaying) {
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
-    } else {
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
+    if (playIcon && pauseIcon) {
+        if (isPlaying) {
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+        } else {
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        }
     }
 }
 
-document.getElementById('play-pause').addEventListener('click', () => {
+document.getElementById('play-pause')?.addEventListener('click', () => {
     console.log('Play/Pause clicked');
     if (isPlaying) {
         player.pauseVideo();
@@ -131,8 +139,8 @@ document.getElementById('play-pause').addEventListener('click', () => {
         .catch(error => console.error('Error:', error));
 });
 
-document.getElementById('next').addEventListener('click', nextTrack);
-document.getElementById('prev').addEventListener('click', prevTrack);
+document.getElementById('next')?.addEventListener('click', nextTrack);
+document.getElementById('prev')?.addEventListener('click', prevTrack);
 
 function nextTrack() {
     console.log('Next track');
@@ -154,7 +162,7 @@ function prevTrack() {
         .catch(error => console.error('Error:', error));
 }
 
-document.getElementById('mute').addEventListener('click', () => {
+document.getElementById('mute')?.addEventListener('click', () => {
     console.log('Mute/Unmute clicked');
     if (player.isMuted()) {
         player.unMute();

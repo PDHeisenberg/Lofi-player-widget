@@ -15,6 +15,8 @@ exports.handler = async function(event, context) {
   const path = event.path.replace('/.netlify/functions/api/', '');
   const method = event.httpMethod;
 
+  console.log(`Received ${method} request for ${path}`);
+
   if (path === 'tracks' && method === 'GET') {
     return {
       statusCode: 200,
@@ -25,10 +27,12 @@ exports.handler = async function(event, context) {
   if (path === 'currentTrack' && method === 'GET') {
     try {
       const track = tracks[currentTrackIndex];
+      console.log('Fetching data for track:', track);
       const response = await youtube.videos.list({
         part: 'snippet',
         id: track.youtubeId
       });
+      console.log('YouTube API response:', response.data);
       const videoData = response.data.items[0].snippet;
       return {
         statusCode: 200,
@@ -40,9 +44,10 @@ exports.handler = async function(event, context) {
         })
       };
     } catch (error) {
+      console.error('Error fetching video:', error);
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: 'Failed to fetch video' })
+        body: JSON.stringify({ error: 'Failed to fetch video', details: error.message })
       };
     }
   }

@@ -9,6 +9,7 @@ body {
 }
 
 .player-widget {
+    position: relative;
     display: flex;
     background-color: white;
     border-radius: 24px;
@@ -83,4 +84,26 @@ button:hover {
 
 #volume-button {
     font-size: 16px;
+}
+
+button svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+#play-pause svg {
+    width: 32px;
+    height: 32px;
+}
+
+.top-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#mute svg {
+    width: 20px;
+    height: 20px;
 }

@@ -38,7 +38,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event) {
     console.log('Player is ready');
     loadTrack(currentTrackIndex);
-    setInterval(updateProgressBar, 1000);
+    setInterval(updateProgressBar, 100);
 }
 
 function onPlayerStateChange(event) {
@@ -86,25 +86,34 @@ function updatePlayerInfo(track) {
     document.getElementById('thumbnail').src = track.thumbnail;
 }
 
+const progressBar = document.querySelector('.progress-bar');
+const progress = document.querySelector('.progress');
+
+progressBar.addEventListener('click', (e) => {
+    const rect = progressBar.getBoundingClientRect();
+    const pos = (e.clientX - rect.left) / rect.width;
+    player.seekTo(pos * player.getDuration());
+    updateProgressBar();
+});
+
 function updateProgressBar() {
     if (player && player.getCurrentTime && isPlaying) {
         const currentTime = player.getCurrentTime();
         const duration = player.getDuration();
         const progressPercent = (currentTime / duration) * 100;
-        document.querySelector('.progress').style.width = `${progressPercent}%`;
+        progress.style.width = `${progressPercent}%`;
     }
 }
 
 function updatePlayPauseButton() {
-    const playPauseBtn = document.getElementById('play-pause');
     const playIcon = document.getElementById('play-icon');
     const pauseIcon = document.getElementById('pause-icon');
     
     if (isPlaying) {
         playIcon.style.display = 'none';
-        pauseIcon.style.display = 'inline';
+        pauseIcon.style.display = 'block';
     } else {
-        playIcon.style.display = 'inline';
+        playIcon.style.display = 'block';
         pauseIcon.style.display = 'none';
     }
 }
@@ -149,12 +158,12 @@ document.getElementById('mute').addEventListener('click', () => {
     console.log('Mute/Unmute clicked');
     if (player.isMuted()) {
         player.unMute();
-        document.getElementById('volume-icon').style.display = 'inline';
+        document.getElementById('volume-icon').style.display = 'block';
         document.getElementById('mute-icon').style.display = 'none';
     } else {
         player.mute();
         document.getElementById('volume-icon').style.display = 'none';
-        document.getElementById('mute-icon').style.display = 'inline';
+        document.getElementById('mute-icon').style.display = 'block';
     }
     fetch('/.netlify/functions/api/toggleMute', { method: 'POST' })
         .then(response => response.json())

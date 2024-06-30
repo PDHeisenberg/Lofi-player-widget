@@ -4,8 +4,13 @@ let tracks = [];
 let isPlaying = false;
 
 // Load tracks from configuration
-fetch('/api/tracks')
-    .then(response => response.json())
+fetch('/.netlify/functions/api/tracks')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         console.log('Tracks loaded:', data);
         tracks = data;
@@ -56,8 +61,13 @@ function onPlayerError(event) {
 
 function loadTrack(index) {
     console.log('Loading track at index:', index);
-    fetch(`/api/currentTrack`)
-        .then(response => response.json())
+    fetch(`/.netlify/functions/api/currentTrack`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(track => {
             console.log('Current track data:', track);
             player.loadVideoById(track.youtubeId);
@@ -106,6 +116,10 @@ document.getElementById('play-pause').addEventListener('click', () => {
     } else {
         player.playVideo();
     }
+    fetch('/.netlify/functions/api/togglePlayPause', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
 });
 
 document.getElementById('next').addEventListener('click', nextTrack);
@@ -115,12 +129,20 @@ function nextTrack() {
     console.log('Next track');
     currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
     loadTrack(currentTrackIndex);
+    fetch('/.netlify/functions/api/changeTrack?direction=next', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
 }
 
 function prevTrack() {
     console.log('Previous track');
     currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
     loadTrack(currentTrackIndex);
+    fetch('/.netlify/functions/api/changeTrack?direction=prev', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
 }
 
 document.getElementById('mute').addEventListener('click', () => {
@@ -134,6 +156,10 @@ document.getElementById('mute').addEventListener('click', () => {
         document.getElementById('volume-icon').style.display = 'none';
         document.getElementById('mute-icon').style.display = 'inline';
     }
+    fetch('/.netlify/functions/api/toggleMute', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
 });
 
 // Initial setup

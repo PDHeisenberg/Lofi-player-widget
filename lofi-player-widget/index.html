@@ -1,33 +1,32 @@
-cat << EOT > index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lo-Fi Player Widget</title>
+    <title>Music Widget</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
-    <div class="player-widget">
-        <div class="thumbnail">
-            <img id="thumbnail" src="" alt="Track Thumbnail">
+    <div class="widget">
+        <div class="album-art">
+            <img id="thumbnail" src="" alt="Album Art">
         </div>
-        <div class="content">
-            <h2 id="track-name"></h2>
-            <p id="artist-name"></p>
+        <div class="info">
+            <div class="track-info">
+                <span id="track-name"></span>
+                <span id="artist-name"></span>
+            </div>
             <div class="progress-bar">
-                <div id="progress"></div>
+                <div class="progress"></div>
             </div>
             <div class="controls">
-                <button id="prev-button">←</button>
-                <button id="play-pause-button">►</button>
-                <button id="next-button">→</button>
-                <button id="volume-button">🔊</button>
+                <button id="prev">⏮️</button>
+                <button id="play-pause">▶️</button>
+                <button id="next">⏭️</button>
+                <button id="mute">🔇</button>
             </div>
         </div>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
-EOT

@@ -1,90 +1,72 @@
-let player;
-let currentTrackIndex = 0;
-let tracks = [];
+document.addEventListener('DOMContentLoaded', () => {
+    const trackName = document.getElementById('track-name');
+    const artistName = document.getElementById('artist-name');
+    const thumbnail = document.getElementById('thumbnail');
+    const playPauseBtn = document.getElementById('play-pause');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const muteBtn = document.getElementById('mute');
+    const progressBar = document.querySelector('.progress');
 
-// Load tracks from configuration
-fetch('tracks.json')
-    .then(response => response.json())
-    .then(data => {
-        tracks = data;
-        loadTrack(currentTrackIndex);
-    });
+    let isPlaying = false;
+    let isMuted = false;
+    let currentTrackIndex = 0;
 
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: tracks[currentTrackIndex].youtubeId,
-        playerVars: {
-            'playsinline': 1
-        },
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+    function updateTrackInfo() {
+        fetch('/api/currentTrack')
+            .then(response => response.json())
+            .then(data => {
+                trackName.textContent = data.title;
+                artistName.textContent = data.artist;
+                thumbnail.src = data.thumbnail;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function togglePlayPause() {
+        isPlaying = !isPlaying;
+        playPauseBtn.textContent = isPlaying ? '⏸️' : '▶️';
+        fetch('/api/togglePlayPause', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+    }
+
+    function toggleMute() {
+        isMuted = !isMuted;
+        muteBtn.textContent = isMuted ? '🔈' : '🔇';
+        fetch('/api/toggleMute', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+    }
+
+    function changeTrack(direction) {
+        fetch(`/api/changeTrack?direction=${direction}`, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                updateTrackInfo();
+                console.log(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    prevBtn.addEventListener('click', () => changeTrack('prev'));
+    nextBtn.addEventListener('click', () => changeTrack('next'));
+    muteBtn.addEventListener('click', toggleMute);
+
+    // Update progress bar
+    setInterval(() => {
+        if (isPlaying) {
+            fetch('/api/progress')
+                .then(response => response.json())
+                .then(data => {
+                    progressBar.style.width = `${data.progress}%`;
+                })
+                .catch(error => console.error('Error:', error));
         }
-    });
-}
+    }, 1000);
 
-function onPlayerReady(event) {
-    updatePlayerInfo();
-    setInterval(updateProgressBar, 1000);
-}
-
-function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.ENDED) {
-        nextTrack();
-    }
-}
-
-function loadTrack(index) {
-    player.loadVideoById(tracks[index].youtubeId);
-    updatePlayerInfo();
-}
-
-function updatePlayerInfo() {
-    document.getElementById('track-name').textContent = tracks[currentTrackIndex].title;
-    document.getElementById('artist-name').textContent = tracks[currentTrackIndex].artist;
-    document.getElementById('thumbnail').src = `https://img.youtube.com/vi/${tracks[currentTrackIndex].youtubeId}/0.jpg`;
-}
-
-function updateProgressBar() {
-    if (player && player.getCurrentTime) {
-        const currentTime = player.getCurrentTime();
-        const duration = player.getDuration();
-        const progressPercent = (currentTime / duration) * 100;
-        document.getElementById('progress').style.width = `${progressPercent}%`;
-    }
-}
-
-document.getElementById('play-pause-button').addEventListener('click', () => {
-    if (player.getPlayerState() == YT.PlayerState.PLAYING) {
-        player.pauseVideo();
-        document.getElementById('play-pause-button').textContent = '►';
-    } else {
-        player.playVideo();
-        document.getElementById('play-pause-button').textContent = '❚❚';
-    }
-});
-
-document.getElementById('next-button').addEventListener('click', nextTrack);
-document.getElementById('prev-button').addEventListener('click', prevTrack);
-
-function nextTrack() {
-    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
-    loadTrack(currentTrackIndex);
-}
-
-function prevTrack() {
-    currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
-    loadTrack(currentTrackIndex);
-}
-
-document.getElementById('volume-button').addEventListener('click', () => {
-    if (player.isMuted()) {
-        player.unMute();
-        document.getElementById('volume-button').textContent = '🔊';
-    } else {
-        player.mute();
-        document.getElementById('volume-button').textContent = '🔇';
-    }
+    updateTrackInfo();
 });

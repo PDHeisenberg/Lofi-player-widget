@@ -1,11 +1,11 @@
-{
-  "name": "lofi-player-widget",
-  "version": "1.0.0",
-  "description": "A lofi music player widget",
-  "scripts": {
-    "build": "echo 'No build step required'"
-  },
-  "dependencies": {
-    "googleapis": "^92.0.0"
-  }
-}
+[build]
+  publish = "."
+  command = "# no build command"
+
+[functions]
+  directory = "functions"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

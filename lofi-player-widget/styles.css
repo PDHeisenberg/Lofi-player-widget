@@ -1,0 +1,86 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.player-widget {
+    display: flex;
+    background-color: white;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+}
+
+.thumbnail {
+    margin-right: 20px;
+}
+
+.thumbnail img {
+    width: 128px;
+    height: 128px;
+    border-radius: 24px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+p {
+    margin: 5px 0 15px;
+    color: #888;
+    font-size: 14px;
+}
+
+.progress-bar {
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    margin-bottom: 15px;
+}
+
+#progress {
+    height: 100%;
+    background-color: #1db954;
+    border-radius: 2px;
+    width: 0;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+button:hover {
+    color: #1db954;
+}
+
+#volume-button {
+    font-size: 16px;
+}

@@ -12,9 +12,9 @@ body {
     position: relative;
     display: flex;
     background-color: white;
-    border-radius: 24px;
+    border-radius: 100px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 24px;
     width: 400px;
 }
 
@@ -25,13 +25,13 @@ body {
 }
 
 .thumbnail {
-    margin-right: 20px;
+    margin-right: -64px;
 }
 
 .thumbnail img {
     width: 128px;
     height: 128px;
-    border-radius: 24px;
+    border-radius: 100px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     object-fit: cover;
 }

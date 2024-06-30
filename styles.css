@@ -18,6 +18,12 @@ body {
     width: 400px;
 }
 
+.top-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
 .thumbnail {
     margin-right: 20px;
 }
@@ -54,13 +60,15 @@ p {
     background-color: #e0e0e0;
     border-radius: 2px;
     margin-bottom: 15px;
+    cursor: pointer;
 }
 
-#progress {
+.progress {
     height: 100%;
     background-color: #1db954;
     border-radius: 2px;
     width: 0;
+    transition: width 0.1s linear;
 }
 
 .controls {
@@ -82,10 +90,6 @@ button:hover {
     color: #1db954;
 }
 
-#volume-button {
-    font-size: 16px;
-}
-
 button svg {
     width: 24px;
     height: 24px;
@@ -97,13 +101,11 @@ button svg {
     height: 32px;
 }
 
-.top-controls {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
 #mute svg {
     width: 20px;
     height: 20px;
+}
+
+#player {
+    display: none;
 }

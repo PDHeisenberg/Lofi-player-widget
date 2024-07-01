@@ -14,13 +14,13 @@ body {
     background-color: white;
     border-radius: 100px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 24px;
+    padding: 12px;
     width: 400px;
 }
 
 .top-controls {
     position: absolute;
-    top: 32px;
+    top: 24px;
     right: 48px;
 }
 

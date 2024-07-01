@@ -45,6 +45,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    line-height: 24px;
 }
 
 h2 {

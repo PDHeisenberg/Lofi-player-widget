@@ -15,22 +15,25 @@ body {
     border-radius: 100px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     padding: 12px;
+    height: 120px;
     width: 400px;
 }
 
 .top-controls {
     position: absolute;
-    top: 32px;
-    right: 43px;
+    top: 24px;
+    right: 42px;
 }
 
 .thumbnail {
-    margin-right: 24px;
+    position: relative;
+    top: -24px;
+    left: -20px;
 }
 
 .thumbnail img {
-    width: 128px;
-    height: 128px;
+    width: 160px;
+    height: 160px;
     border-radius: 100px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     object-fit: cover;

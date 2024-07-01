@@ -25,10 +25,12 @@ body {
 }
 
 .thumbnail {
-    margin-right: -64px;
+    margin-right: 24px;
 }
 
 .thumbnail img {
+    position: absolute;
+    margin: -64px;
     width: 128px;
     height: 128px;
     border-radius: 100px;

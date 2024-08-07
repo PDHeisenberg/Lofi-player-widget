@@ -11,65 +11,46 @@ body {
 .player-widget {
     position: relative;
     display: flex;
-    background-color: black;
-    border-radius: 100px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    padding: 12px;
-    height: 120px;
-    width: 400px;
-}
-
-.top-controls {
-    position: absolute;
-    top: 24px;
-    right: 42px;
+    background-color: #1e1e1e; /* Dark grey to match the dashboard */
+    border-radius: 16px; /* Adjusted to match the dashboard's card style */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    height: auto;
+    width: 300px;
 }
 
 .thumbnail {
-    position: relative;
-    top: -24px;
-    left: -20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-right: 16px;
 }
 
 .thumbnail img {
-    width: 160px;
-    height: 160px;
-    border-radius: 100px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
 .content {
-    padding-right: 32px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    line-height: 24px;
 }
 
 h2 {
     margin: 0;
-    font-size: 18px;
+    font-size: 16px;
     color: #ffffff;
+    font-weight: 600;
 }
 
 p {
-    margin: 5px 0 15px;
-    color: #ffffff;
+    margin: 4px 0 12px;
+    color: #a0a0a0;
     font-size: 14px;
-}
-
-.progress-bar {
-    display: none;
-}
-
-.progress {
-    height: 100%;
-    background-color: #1db954;
-    border-radius: 2px;
-    width: 0;
-    transition: width 0.1s linear;
 }
 
 .controls {
@@ -85,26 +66,17 @@ button {
     cursor: pointer;
     color: #ffffff;
     transition: color 0.3s ease;
+    padding: 8px;
 }
 
 button:hover {
-    color: #1db954;
+    color: #1db954; /* Spotify green for hover effect */
 }
 
 button svg {
     width: 24px;
     height: 24px;
     display: block;
-}
-
-#play-pause svg {
-    width: 24px;
-    height: 24px;
-}
-
-#mute svg {
-    width: 20px;
-    height: 20px;
 }
 
 #player {

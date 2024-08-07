@@ -5,14 +5,15 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-color: transparent;
 }
 
 .player-widget {
     position: relative;
     display: flex;
-    background-color: white;
+    background-color: black;
     border-radius: 100px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     padding: 12px;
     height: 120px;
     width: 400px;
@@ -34,7 +35,7 @@ body {
     width: 160px;
     height: 160px;
     border-radius: 100px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     object-fit: cover;
 }
 
@@ -50,12 +51,12 @@ body {
 h2 {
     margin: 0;
     font-size: 18px;
-    color: #333;
+    color: #ffffff;
 }
 
 p {
     margin: 5px 0 15px;
-    color: #888;
+    color: #ffffff;
     font-size: 14px;
 }
 
@@ -82,7 +83,7 @@ button {
     border: none;
     font-size: 20px;
     cursor: pointer;
-    color: #333;
+    color: #ffffff;
     transition: color 0.3s ease;
 }
 

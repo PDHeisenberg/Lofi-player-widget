@@ -11,8 +11,9 @@ body {
     position: relative;
     display: flex;
     background-color: #25262B;
+    border-style: solid;
+    border-color: rgb(55, 58, 64);
     border-radius: 100px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     padding: 12px;
     height: 120px;
     width: 400px;

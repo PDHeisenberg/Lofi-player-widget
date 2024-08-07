@@ -1,5 +1,5 @@
 body {
-    background: 25262B;
+    background: #25262B;
     font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
@@ -10,7 +10,7 @@ body {
 .player-widget {
     position: relative;
     display: flex;
-    background-color: 25262BB;
+    background-color: #25262B;
     border-radius: 100px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     padding: 12px;

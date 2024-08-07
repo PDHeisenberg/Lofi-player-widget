@@ -12,7 +12,7 @@ body {
     display: flex;
     background-color: #25262B;
     border-radius: 100px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     padding: 12px;
     height: 120px;
     width: 400px;

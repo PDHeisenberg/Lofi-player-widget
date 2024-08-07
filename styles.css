@@ -1,4 +1,5 @@
 body {
+    background: 25262B;
     font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
@@ -9,7 +10,7 @@ body {
 .player-widget {
     position: relative;
     display: flex;
-    background-color: white;
+    background-color: 25262BB;
     border-radius: 100px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     padding: 12px;
@@ -44,11 +45,11 @@ body {
 h2 {
     margin: 0;
     font-size: 18px;
-    color: #333;
+    color: white;
 }
 p {
     margin: 5px 0 15px;
-    color: #888;
+    color: white;
     font-size: 14px;
 }
 .progress-bar {
@@ -71,11 +72,11 @@ button {
     border: none;
     font-size: 20px;
     cursor: pointer;
-    color: #333;
+    color: white;
     transition: color 0.3s ease;
 }
 button:hover {
-    color: #1db954;
+    color: grey;
 }
 button svg {
     width: 24px;
